@@ -1,0 +1,12 @@
+699e795f143ba5b776f7292c5ccb9cae *DESCRIPTION
+4ce0801eacab4ff9a0f52528dd0a5271 *NAMESPACE
+a49e4ad67f497a52a0a50813c44c0036 *R/AppendCheckDigit.R
+542577d8dbb352ebc4d68cbfcabdab9c *R/Verhoeff.R
+0271f79ae24b356bd49ed0ba61689647 *R/VerifyCheckDigit.R
+995bdb765e84965170843256360507e0 *README.md
+af06ea24f7adce2282cb2e12f6482019 *inst/tests/test-AppendCheckDigit.R
+d0cf99eff10cd834e86b40b89a335202 *inst/tests/test-VerifyCheckDigit.R
+40e127fc2858ccbead80169bd9d84a46 *man/AppendCheckDigit.Rd
+a50fe4e7485a0198ae7c9d362ea8d909 *man/CheckDigit-package.Rd
+446e6b13aa8e4da2c758c09f76dd6309 *man/VerifyCheckDigit.Rd
+7fd10a84f0d0d15419d6d0a6b9d116af *tests/test-CheckDigit.R
