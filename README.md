@@ -1,6 +1,11 @@
+# <a href="https://fascinatingfingers.gitlab.io/checkdigit" target="_blank">Open CheckDigit documentation site</a>
 
-CheckDigit
-==========
+# CheckDigit <a href="https://fascinatingfingers.gitlab.io/checkdigit"></a>
+
+<!-- badges: start -->
+[![pipeline status](https://gitlab.com/fascinatingfingers/checkdigit/badges/main/pipeline.svg)](https://gitlab.com/fascinatingfingers/checkdigit/-/pipelines)
+[![coverage report](https://gitlab.com/fascinatingfingers/checkdigit/badges/main/coverage.svg)](https://gitlab.com/fascinatingfingers/checkdigit)
+<!-- badges: end -->
 
 The CheckDigit package provides a set of functions to calculate check digits
 according to various algorithms and to verify whether a value ends in a valid

@@ -1,10 +1,27 @@
 
+#' Verhoeff algorithm implementation
+#'
+#' The Verhoeff algorithm is appropriate for numerical data and detects all
+#' single-digit substitutions (x to y) and adjacent digit transpositions (xy to
+#' yx). In addition, the Verhoeff check digit can detect most twin errors (xx to
+#' yy), jump twin errors (xyx to zyz), jump transpositions (xyz to zyx), and
+#' phonetic errors ("sixty" to "sixteen").
+#'
+#' @param x character vector of values
+#'
+#' @references Verhoeff, J. "Error Detecting Decimal Codes", Mathematical Centre
+#'   Tract 29, The Mathematical Centre, Amsterdam, 1969.
+#'
+#' @name verhoeff
+NULL
+
+#' @rdname verhoeff
 AppendCheckDigit.Verhoeff <- function(x) {
 
     x[is.na(x)] <- NA
 
-    if (any(grepl('\\D', x))) {
-        warning('Non-digit characters are disregarded in check digit calculation')
+    if (any(grepl("\\D", x))) {
+        warning("Non-digit characters are disregarded in check digit calculation")
     }
 
     d <- matrix(
@@ -20,8 +37,8 @@ AppendCheckDigit.Verhoeff <- function(x) {
             8, 7, 6, 5, 9, 3, 2, 1, 0, 4,
             9, 8, 7, 6, 5, 4, 3, 2, 1, 0
         ),
-        ncol=10,
-        byrow=TRUE
+        ncol = 10,
+        byrow = TRUE
     )
 
     p <- matrix(
@@ -35,39 +52,40 @@ AppendCheckDigit.Verhoeff <- function(x) {
             2, 7, 9, 3, 8, 0, 6, 4, 1, 5,
             7, 0, 4, 6, 9, 1, 3, 2, 5, 8
         ),
-        ncol=10,
-        byrow=TRUE
+        ncol = 10,
+        byrow = TRUE
     )
 
     inv <- matrix(
         c(0, 4, 3, 2, 1, 5, 6, 7, 8, 9),
-        ncol=10,
-        byrow=TRUE
+        ncol = 10,
+        byrow = TRUE
     )
 
     y <- sapply(x, function(x) {
-        y <- gsub('\\D', '', x)
-        if (y %in% c('', NA, NaN)) {
+        y <- gsub("\\D", "", x)
+        if (y %in% c("", NA, NaN)) {
             return(x)
         } else {
             c <- 0
-            n <- as.integer(rev(unlist(strsplit(y, ''))))
+            n <- as.integer(rev(unlist(strsplit(y, ""))))
             for (i in seq(n)) {
-                c <- d[c+1, p[i %% 8 + 1, n[i]+1]+1]
+                c <- d[c + 1, p[i %% 8 + 1, n[i] + 1] + 1]
             }
-            return(paste(x, inv[c+1], sep=''))
+            return(paste(x, inv[c + 1], sep = ""))
         }
     })
 
     return(y)
 }
 
+#' @rdname verhoeff
 VerifyCheckDigit.Verhoeff <- function(x) {
 
     x[is.na(x)] <- NA
 
-    if (any(grepl('\\D', x))) {
-        warning('Non-digit characters are disregarded in check digit calculation')
+    if (any(grepl("\\D", x))) {
+        warning("Non-digit characters are disregarded in check digit calculation")
     }
 
     d <- matrix(
@@ -83,8 +101,8 @@ VerifyCheckDigit.Verhoeff <- function(x) {
             8, 7, 6, 5, 9, 3, 2, 1, 0, 4,
             9, 8, 7, 6, 5, 4, 3, 2, 1, 0
         ),
-        ncol=10,
-        byrow=TRUE
+        ncol = 10,
+        byrow = TRUE
     )
 
     p <- matrix(
@@ -98,19 +116,19 @@ VerifyCheckDigit.Verhoeff <- function(x) {
             2, 7, 9, 3, 8, 0, 6, 4, 1, 5,
             7, 0, 4, 6, 9, 1, 3, 2, 5, 8
         ),
-        ncol=10,
-        byrow=TRUE
+        ncol = 10,
+        byrow = TRUE
     )
 
     y <- sapply(x, function(x) {
-        y <- gsub('\\D', '', x)
-        if (y %in% c('', NA, NaN)) {
+        y <- gsub("\\D", "", x)
+        if (y %in% c("", NA, NaN)) {
             return(FALSE)
         } else {
             c <- 0
-            n <- as.integer(rev(unlist(strsplit(y, ''))))
+            n <- as.integer(rev(unlist(strsplit(y, ""))))
             for (i in seq(n)) {
-                c <- d[c+1, p[(i-1) %% 8 + 1, n[i]+1]+1]
+                c <- d[c + 1, p[(i - 1) %% 8 + 1, n[i] + 1] + 1]
             }
             return(c == 0)
         }
